@@ -160,6 +160,9 @@ SubShader {
 			float outline = outlineParam.y * input.texcoord3.y * 0.5 * scale;
 
 			float opacity = input.color.a;
+			float2 rg = UnpackUV(input.tangent.z);
+			float2 ba = UnpackUV(input.tangent.w);
+			float4 outlineColor = float4(rg.x, rg.y, ba.x, ba.y);
 			#if (UNDERLAY_ON | UNDERLAY_INNER)
 			opacity = 1.0;
 			#endif
@@ -168,7 +171,7 @@ SubShader {
 			faceColor.rgb *= faceColor.a;
 
 			//fixed4 outlineColor = _OutlineColor;
-			fixed4 outlineColor = input.tangent;
+			fixed4 outlineColor = outlineColor;// input.tangent;
 			outlineColor.a *= opacity;
 			outlineColor.rgb *= outlineColor.a;
 			outlineColor = lerp(faceColor, outlineColor, sqrt(min(1.0, (outline * 2))));
@@ -208,7 +211,7 @@ SubShader {
 			output.texcoord1 = float4(input.texcoord0 + layerOffset, input.color.a, 0);
 			output.underlayParam = half2(layerScale, layerBias);
 			
-			output.underlayColor = input.tangent;
+			output.underlayColor = outlineColor;// input.tangent;
 			#endif
 
 			return output;

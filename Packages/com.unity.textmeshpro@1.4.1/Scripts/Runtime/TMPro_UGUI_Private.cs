@@ -3559,10 +3559,14 @@ namespace TMPro
 
                             float uv4_x = PackUV(faceDilate, outlineWidth);
                             float uv4_y = scaleRatioA;
-                            characterInfos[i].vertex_BL.uv4.x = uv4_x; characterInfos[i].vertex_BL.uv4.y = scaleRatioA; characterInfos[i].vertex_BL.tangent = effectColorToTangent;
-                            characterInfos[i].vertex_TL.uv4.x = uv4_x; characterInfos[i].vertex_TL.uv4.y = scaleRatioA; characterInfos[i].vertex_TL.tangent = effectColorToTangent;
-                            characterInfos[i].vertex_TR.uv4.x = uv4_x; characterInfos[i].vertex_TR.uv4.y = scaleRatioA; characterInfos[i].vertex_TR.tangent = effectColorToTangent;
-                            characterInfos[i].vertex_BR.uv4.x = uv4_x; characterInfos[i].vertex_BR.uv4.y = scaleRatioA; characterInfos[i].vertex_BR.tangent = effectColorToTangent;
+                            Vector4 tangent = effectColorFloat;
+                            float uv4_tx = PackUV(tangent.x, Math.Max(tangent.y,0.00392156f));
+                            float uv4_ty = PackUV(tangent.z, Math.Max(tangent.w, 0.00392156f));
+                            tangent = new Vector4(0, 0, uv4_tx, uv4_ty);
+                            characterInfos[i].vertex_BL.uv4.x = uv4_x; characterInfos[i].vertex_BL.uv4.y = scaleRatioA; characterInfos[i].vertex_BL.tangent = tangent;
+                            characterInfos[i].vertex_TL.uv4.x = uv4_x; characterInfos[i].vertex_TL.uv4.y = scaleRatioA; characterInfos[i].vertex_TL.tangent = tangent;
+                            characterInfos[i].vertex_TR.uv4.x = uv4_x; characterInfos[i].vertex_TR.uv4.y = scaleRatioA; characterInfos[i].vertex_TR.tangent = tangent;
+                            characterInfos[i].vertex_BR.uv4.x = uv4_x; characterInfos[i].vertex_BR.uv4.y = scaleRatioA; characterInfos[i].vertex_BR.tangent = tangent;
 #if TMP_PROFILE_ON
                                 Profiler.EndSample();
 #endif

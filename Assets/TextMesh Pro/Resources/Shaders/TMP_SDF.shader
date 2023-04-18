@@ -201,10 +201,12 @@ SubShader {
 		#endif
 
 			alphaClip = alphaClip / 2.0 - ( .5 / scale) - weight;
-
+			float2 rg = UnpackUV(input.tangent.z);
+			float2 ba = UnpackUV(input.tangent.w);
+			float4 outlineColor = float4(rg.x, rg.y, ba.x, ba.y);
 		#if (UNDERLAY_ON || UNDERLAY_INNER)
 			//float4 underlayColor = _UnderlayColor;
-			float4 underlayColor = input.tangent;
+			float4 underlayColor = outlineColor;//input.tangent;
 			underlayColor.rgb *= underlayColor.a;
 
 			// underlayOffsetX,underlayOffsetY
@@ -249,7 +251,7 @@ SubShader {
 			#endif
 			output.textures = float4(faceUV, outlineUV);
 			output.outlineParam = float2(outline.y, input.texcoord3.y);
-			output.outlineColor = input.tangent;
+			output.outlineColor = outlineColor;// input.tangent;
 			return output;
 		}
 
