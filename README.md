@@ -81,4 +81,4 @@ uv4_y：scaleRatioA
 tangent：effectColorToTangent （描边和投影共用一个颜色值）   
 然而还有存在一些小问题：
 1. 修改字体投影效果，需要开启UnderlayOn，去掉宏的时候不能正常处理，暂未定位到原因。
-2. 如果是实时发生旋转变化的UI，由于逆矩阵的计算放在C#侧，所以需要同步更新刷新颜色值。
+2. 如果是实时发生旋转变化的UI，由于逆矩阵的计算放在C#侧，所以需要同步更新刷新颜色值。(已解决，canvas影响tangent的xy，将颜色值PackUV到zw分量，shader处UnpackUV即可）
