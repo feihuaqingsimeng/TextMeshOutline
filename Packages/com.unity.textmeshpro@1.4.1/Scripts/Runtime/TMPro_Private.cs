@@ -3332,10 +3332,10 @@ namespace TMPro
                             characterInfos[i].vertex_TR.uv2.x = PackUV(x1, y1); characterInfos[i].vertex_TR.uv2.y = xScale;
                             characterInfos[i].vertex_BR.uv2.x = PackUV(x1, y0); characterInfos[i].vertex_BR.uv2.y = xScale;
 
-                            float x = Mathf.Clamp(underlayOffsetX, -1f, 1f) / 2 + 0.5f;
-                            float y = Mathf.Clamp(underlayOffsetY, -1f, 1f) / 2 + 0.5f;
-                            float uv3_x = PackUV(x, y);
-                            float uv3_y = PackUV(underlayDilate, scaleRatioC);
+                            Vector4 tangent = effectColorFloat;
+                            float uv3_x = PackUV(tangent.x, tangent.y);
+                            float uv3_y = PackUV(tangent.z, tangent.w);
+                            
                             characterInfos[i].vertex_BL.uv3.x = uv3_x; characterInfos[i].vertex_BL.uv3.y = uv3_y; //characterInfos[i].vertex_BL.tangent = effectColorFloat;
                             characterInfos[i].vertex_TL.uv3.x = uv3_x; characterInfos[i].vertex_TL.uv3.y = uv3_y; //characterInfos[i].vertex_TL.tangent = effectColorFloat;
                             characterInfos[i].vertex_TR.uv3.x = uv3_x; characterInfos[i].vertex_TR.uv3.y = uv3_y; //characterInfos[i].vertex_TR.tangent = effectColorFloat;
@@ -3343,10 +3343,13 @@ namespace TMPro
 
                             float uv4_x = PackUV(faceDilate, outlineWidth);
                             float uv4_y = scaleRatioA;
-                            Vector4 tangent = effectColorFloat;
-                            float uv4_tx = PackUV(tangent.x, Math.Max(tangent.y, 0.00392156f));
-                            float uv4_ty = PackUV(tangent.z, Math.Max(tangent.w, 0.00392156f));
+
+                            float x = Mathf.Clamp(underlayOffsetX, -1f, 1f) / 2 + 0.5f;
+                            float y = Mathf.Clamp(underlayOffsetY, -1f, 1f) / 2 + 0.5f;
+                            float uv4_tx = PackUV(x, y);
+                            float uv4_ty = PackUV(underlayDilate, scaleRatioC);
                             tangent = new Vector4(0, 0, uv4_tx, uv4_ty);
+                            
                             characterInfos[i].vertex_BL.uv4.x = uv4_x; characterInfos[i].vertex_BL.uv4.y = scaleRatioA; characterInfos[i].vertex_BL.tangent = tangent;
                             characterInfos[i].vertex_TL.uv4.x = uv4_x; characterInfos[i].vertex_TL.uv4.y = scaleRatioA; characterInfos[i].vertex_TL.tangent = tangent;
                             characterInfos[i].vertex_TR.uv4.x = uv4_x; characterInfos[i].vertex_TR.uv4.y = scaleRatioA; characterInfos[i].vertex_TR.tangent = tangent;

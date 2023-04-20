@@ -201,8 +201,8 @@ SubShader {
 		#endif
 
 			alphaClip = alphaClip / 2.0 - ( .5 / scale) - weight;
-			float2 rg = UnpackUV(input.tangent.z);
-			float2 ba = UnpackUV(input.tangent.w);
+			float2 rg = UnpackUV(input.texcoord2.x);
+			float2 ba = UnpackUV(input.texcoord2.y);
 			float4 outlineColor = float4(rg.x, rg.y, ba.x, ba.y);
 		#if (UNDERLAY_ON || UNDERLAY_INNER)
 			//float4 underlayColor = _UnderlayColor;
@@ -210,11 +210,11 @@ SubShader {
 			underlayColor.rgb *= underlayColor.a;
 
 			// underlayOffsetX,underlayOffsetY
-			float2 uv2_x = UnpackUV(input.texcoord2.x);
+			float2 uv2_x = UnpackUV(input.tangent.z);
 			float underlayOffsetX = uv2_x.x * 2 - 1;
 			float underlayOffsetY = uv2_x.y * 2 - 1;
 			// underlayDilate,scaleRatioC
-			float2 uv2_y = UnpackUV(input.texcoord2.y);
+			float2 uv2_y = UnpackUV(input.tangent.w);
 
 			float bScale = scale;
 			//bScale /= 1 + ((_UnderlaySoftness*_ScaleRatioC) * bScale);
