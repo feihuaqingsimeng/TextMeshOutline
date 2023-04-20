@@ -250,7 +250,7 @@ namespace TMPro
             }
 
             // Compute Ratio B
-            if (mat.HasProperty(ID_GlowOffset))
+            if (mat.HasProperty(ID_GlowOffset) && mat.shaderKeywords.Contains(Keyword_Glow))
             {
                 float glowOffset = mat.GetFloat(ID_GlowOffset);
                 float glowOuter = mat.GetFloat(ID_GlowOuter);
